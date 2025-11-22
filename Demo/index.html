@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Visiting Card — Demo</title>
+  <style>
+    :root{--accent:#FF6B35;--bg:#f7f7f8;--card:#fff;--muted:#666}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#111}
+    .wrap{max-width:900px;margin:28px auto;padding:20px}
+    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 20px rgba(16,24,40,.06)}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#ffd9c9,#ff6b35);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+    .row{display:grid;grid-template-columns:1fr 220px;gap:16px;margin-top:16px}
+    .services{display:grid;gap:8px}
+    .service{padding:10px;border-radius:10px;border:1px solid #f0f0f0;background:linear-gradient(180deg,#fff,#fff)}
+    .price{font-weight:700;color:var(--accent);font-size:18px}
+    .cta{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn-wh{background:#25D366;color:#fff}
+    .btn-view{background:transparent;border:1px solid #eee}
+    .info{font-size:14px;color:var(--muted);margin-top:12px}
+    footer{margin-top:16px;font-size:13px;color:var(--muted);text-align:center}
+    @media(max-width:720px){.row{grid-template-columns:1fr;}.logo{width:64px;height:64px}}
+    /* small gallery */
+    .gallery{display:flex;gap:8px;margin-top:12px}
+    .thumb{flex:1;min-height:68px;border-radius:8px;background:#eee;display:flex;align-items:center;justify-content:center;color:#888}
+    .meta{display:flex;flex-direction:column;gap:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo">JS</div>
+        <div class="meta">
+          <h1>Jai Juice Corner</h1>
+          <p class="lead">Fresh fresh juice • Home delivery • Near Bus Stand</p>
+          <div class="info">Owner: Mr. Kumar • Open: 9:00 AM - 9:00 PM</div>
+        </div>
+      </header><div class="row">
+    <div>
+      <section style="margin-top:16px">
+        <h3 style="margin:0 0 8px">Services</h3>
+        <div class="services">
+          <div class="service">Fresh mango juice — ₹60</div>
+          <div class="service">Sugarcane juice — ₹40</div>
+          <div class="service">Cold coffee — ₹50</div>
+          <div class="service">Home tiffin & delivery</div>
+        </div>
+
+        <div class="gallery">
+          <div class="thumb">Photo 1</div>
+          <div class="thumb">Photo 2</div>
+          <div class="thumb">Photo 3</div>
+        </div>
+
+        <h3 style="margin-top:14px;margin-bottom:8px">About</h3>
+        <p style="margin:0;color:var(--muted);line-height:1.45">Local juice stall serving fresh seasonal fruit juices since 2018. Quick delivery in nearby areas. Show this page to customers or share on WhatsApp.</p>
+      </section>
+
+      <section style="margin-top:14px">
+        <h3 style="margin:0 0 8px">Location</h3>
+        <p style="margin:0;color:var(--muted)">Near Bus Stand, MG Road, YourCity — <a href="#" onclick="openMap(event)">Open in maps</a></p>
+      </section>
+
+      <section style="margin-top:14px">
+        <h3 style="margin:0 0 8px">Contact</h3>
+        <p style="margin:0;color:var(--muted)">+91 9XXXXXXXXX</p>
+        <div style="margin-top:10px" class="cta">
+          <button class="btn btn-wh" onclick="startWhatsApp()">📱 WhatsApp</button>
+          <button class="btn btn-view" onclick="shareDemo()">🔗 Get demo link</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px"><span class="price">₹100</span><span style="color:var(--muted)">One-time</span></div>
+        </div>
+      </section>
+    </div>
+
+    <aside>
+      <div style="padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f5f5f5">
+        <h3 style="margin:0">Quick Details</h3>
+        <p style="margin:6px 0;color:var(--muted)">What you get:</p>
+        <ul style="margin:0;padding-left:18px;color:var(--muted)">
+          <li>1-page HTML (mobile-friendly)</li>
+          <li>WhatsApp contact button</li>
+          <li>Photos & menu</li>
+          <li>Hosted for free — share link</li>
+        </ul>
+        <div style="margin-top:12px">
+          <strong>How to buy</strong>
+          <p style="margin:6px 0;color:var(--muted)">Pay ₹100 → I will send the link & update your name/photo.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;padding:12px;border-radius:10px;background:#fff;border:1px solid #f5f5f5">
+        <h4 style="margin:0">Pitch to customer</h4>
+        <p style="margin:6px 0;color:var(--muted);font-size:14px">"Bhai, ₹100 ka digital visiting card bana dunga. WhatsApp par share kar sakte ho. Naam, phone, address sab daal dunga."</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    Demo template — change text & phone. To use: Save this file as <code>index.html</code> and open in browser or host on GitHub Pages / Netlify.
+  </footer>
+</div>
+
+  </div>  <script>
+    function startWhatsApp(){
+      var phone = '+919999999999'; // CHANGE THIS PHONE
+      var text = encodeURIComponent('Hi, I want to order / know more.');
+      window.open('https://wa.me/' + phone.replace(/\D/g,'') + '?text=' + text,'_blank');
+    }
+    function openMap(e){e.preventDefault();window.open('https://www.google.com/maps','_blank')}
+    function shareDemo(){navigator.clipboard.writeText(location.href).then(()=>alert('Demo link copied. Paste it in WhatsApp.'))}
+  </script></body>
+</html>
