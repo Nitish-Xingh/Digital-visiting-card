@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Digital Visiting Card</title>
+<meta name="description" content="Digital visiting card — shareable link, WhatsApp, call, map."/>
+<style>
+  :root{--accent:#FF6B35;--muted:#666;--bg:#f6f7fb}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#111;background:var(--bg);-webkit-font-smoothing:antialiased}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{width:100%;max-width:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(16,24,40,.08);overflow:hidden}
+  .hero{display:flex;gap:14px;padding:18px;align-items:center}
+  .avatar{width:84px;height:84px;border-radius:14px;flex-shrink:0;overflow:hidden;background:#eee;display:flex;align-items:center;justify-content:center}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .meta h1{margin:0;font-size:18px;letter-spacing:.2px}
+  .meta p{margin:6px 0 0;color:var(--muted);font-size:14px}
+  .badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .badge{background:#f3f4f6;padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+  .content{padding:0 18px 18px}
+  .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;text-decoration:none;font-weight:700;border:0;cursor:pointer}
+  .btn.call{background:#0b76ef;color:#fff}
+  .btn.wa{background:#25d366;color:#fff}
+  .btn.map{background:#fff;border:1px solid #eee;color:#333}
+  .info{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.4}
+  .menu{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .chip{padding:8px 10px;border-radius:999px;background:#fff;border:1px solid #f0f0f0;font-size:13px;color:var(--muted)}
+  .price{margin-top:12px;font-weight:800;color:var(--accent);font-size:18px}
+  footer{padding:12px 18px;border-top:1px solid #fafafa;background:#fff;font-size:13px;color:var(--muted);text-align:center}
+  @media(max-width:420px){.avatar{width:72px;height:72px}.hero{padding:14px}.content{padding:0 14px 14px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="hero">
+        <div class="avatar">
+          <!-- Replace image URL with your photo -->
+          <img id="profileImg" src="https://i.imgur.com/7k6Kc4W.jpeg" alt="Profile">
+        </div>
+        <div class="meta">
+          <h1 id="name">Your Name</h1>
+          <p id="role">Business / Service • City</p>
+          <div class="badges">
+            <div class="badge" id="since">Since 2018</div>
+            <div class="badge" id="openhours">Open: 9:00–21:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="menu">
+          <div class="chip" id="addr">📍 MG Road, YourCity</div>
+          <div class="chip" id="phone">📞 +91 91234 56789</div>
+          <div class="chip" id="service">🍹 Fresh Juice • Home Delivery</div>
+        </div>
+
+        <div class="buttons">
+          <a id="callBtn" class="btn call" href="tel:+919123456789">📞 Call</a>
+          <a id="waBtn" class="btn wa" href="https://wa.me/919123456789?text=Hi" target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <a id="mapBtn" class="btn map" href="https://www.google.com/maps" target="_blank" rel="noopener">🗺️ Open Map</a>
+          <button id="shareBtn" class="btn map" onclick="shareCard()">🔗 Share</button>
+        </div>
+
+        <div class="info" id="about">
+          Local juice stall serving fresh seasonal fruit juices. Quick delivery within 3 km. Show this page to customers or share via WhatsApp.
+        </div>
+
+        <div class="price">ONE-TIME ₹100</div>
+      </div>
+
+      <footer>
+        Save this link or scan QR to share. Made with ♥ — change details in the HTML file.
+      </footer>
+    </div>
+  </div>
+
+<script>
+  // ----- Edit contact details here -----
+  const DETAILS = {
+    name: "Jai Juice Corner",
+    role: "Fresh Juice • Home Delivery",
+    phone: "+919876543210",           // use full country code
+    phoneDisplay: "+91 98765 43210",  // shown on card
+    address: "Near Bus Stand, MG Road, YourCity",
+    mapUrl: "https://www.google.com/maps/place/Your+Location",
+    image: "https://i.imgur.com/7k6Kc4W.jpeg",
+    about: "Local juice stall serving fresh seasonal fruit juices since 2018. Quick delivery within nearby areas.",
+    since: "Since 2018",
+    hours: "9:00 AM - 9:00 PM",
+    priceText: "ONE-TIME ₹100"
+  };
+
+  // Populate UI
+  document.getElementById('name').textContent = DETAILS.name;
+  document.getElementById('role').textContent = DETAILS.role;
+  document.getElementById('phone').textContent = "📞 " + DETAILS.phoneDisplay;
+  document.getElementById('addr').textContent = "📍 " + DETAILS.address;
+  document.getElementById('about').textContent = DETAILS.about;
+  document.getElementById('profileImg').src = DETAILS.image;
+  document.getElementById('since').textContent = DETAILS.since;
+  document.getElementById('openhours').textContent = "Open: " + DETAILS.hours;
+  document.getElementById('waBtn').href = "https://wa.me/" + DETAILS.phone.replace(/\D/g,'') + "?text=" + encodeURIComponent("Hi, I'm contacting you from your digital card.");
+  document.getElementById('callBtn').href = "tel:" + DETAILS.phone.replace(/\D/g,'');
+  document.getElementById('mapBtn').href = DETAILS.mapUrl;
+  document.querySelector('.price').textContent = DETAILS.priceText;
+
+  // Share fallback
+  function shareCard() {
+    const shareData = {
+      title: DETAILS.name,
+      text: DETAILS.role + " — " + DETAILS.phoneDisplay,
+      url: location.href
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(()=>{});
+    } else {
+      // fallback: copy link
+      navigator.clipboard.writeText(location.href).then(()=>alert('Link copied! Paste in WhatsApp/Status.'));
+    }
+  }
+
+  // vCard download
+  (function addVCardButton(){
+    const btn = document.createElement('button');
+    btn.className = 'btn map';
+    btn.style.marginLeft = 'auto';
+    btn.textContent = '💾 Save Contact';
+    btn.onclick = function(){
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'FN:' + DETAILS.name,
+        'ORG:' + DETAILS.role,
+        'TEL;TYPE=CELL:' + DETAILS.phone,
+        'ADR;TYPE=HOME:;;' + DETAILS.address,
+        'ITEM1.URL:' + (location.href || ''),
+        'END:VCARD'
+      ].join('\\n');
+      const blob = new Blob([vcard], {type: 'text/vcard'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = (DETAILS.name.replace(/\\s+/g,'_') || 'contact') + '.vcf';
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },100);
+    };
+    document.querySelector('.content').insertBefore(btn, document.querySelector('.price'));
+  })();
+
+  // Optional: generate QR (lightweight)
+  (function addQR(){
+    const qrWrapper = document.createElement('div');
+    qrWrapper.style.marginTop = '12px';
+    qrWrapper.style.textAlign = 'center';
+    qrWrapper.innerHTML = '<canvas id="qr" style="width:120px;height:120px;border-radius:10px;background:#fff"></canvas><div style="font-size:12px;color:var(--muted)">Scan to open</div>';
+    document.querySelector('.content').appendChild(qrWrapper);
+
+    // simple QR generator (minimal) — uses canvas + tiny algorithm (no external libs)
+    // Implementation: use Google Chart API as image for simplicity (works offline? requires network).
+    const qrCanvas = document.getElementById('qr');
+    const ctx = qrCanvas.getContext('2d');
+    const url = encodeURIComponent(location.href);
+    const qrImg = new Image();
+    qrImg.crossOrigin = 'anonymous';
+    qrImg.src = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + url;
+    qrImg.onload = function(){ ctx.drawImage(qrImg,0,0,qrCanvas.width,qrCanvas.height); };
+  })();
+</script>
+</body>
+</html>
